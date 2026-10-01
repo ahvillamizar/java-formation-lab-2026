@@ -1,25 +1,33 @@
 package com.indra.retail.orders.service;
 
+import com.indra.retail.orders.dto.CreateOrderRequest;
+import com.indra.retail.orders.dto.OrderResponse;
 import com.indra.retail.orders.model.Order;
+import org.springframework.stereotype.Service;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import org.springframework.stereotype.Service;
 
 @Service
 public class OrderService {
 
     private final Map<String, Order> orders = new ConcurrentHashMap<>();
 
-    public Order create(Order order) {
-        orders.put(order.getId(), order);
-        return order;
+    public OrderResponse create(CreateOrderRequest order) {
+        Order newOrder = new Order(order.customerId(), order.items(), order.deliveryAddress());
+        orders.put(newOrder.getId(), newOrder);
+        return OrderResponse.from(newOrder);
     }
 
-    public Order findById(String orderId) {
+
+
+    public OrderResponse findById(String orderId)  {
         Order order = orders.get(orderId);
         if (order == null) {
             throw new OrderNotFoundException(orderId);
         }
-        return order;
+        return OrderResponse.from(order);
     }
+
+
 }
