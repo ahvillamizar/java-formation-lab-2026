@@ -153,6 +153,62 @@
     }
     .mermaid { display: flex; justify-content: center; }
 
+    .concept-slide {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      background: #102f3d;
+    }
+    .concept-inner {
+      width: 100%; min-height: 100vh;
+      padding: 52px 72px 64px;
+      display: flex; flex-direction: column;
+    }
+    .concept-header { margin-bottom: 26px; }
+    .concept-header h1 { font-size: 42px; color: #fff; }
+    .concept-header h1 em { color: var(--indra-accent); font-style: normal; }
+    .concept-header p { margin-top: 10px; color: rgba(255,255,255,.62); font-size: 17px; }
+    .concept-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .concept-card {
+      min-height: 280px; padding: 20px 18px;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+      border-top: 4px solid var(--c-color, var(--indra-accent)); border-radius: 12px;
+      display: flex; flex-direction: column;
+    }
+    .concept-card .icon-row { display: flex; align-items: center; gap: 10px; }
+    .concept-card .icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 19px; background: color-mix(in srgb, var(--c-color, var(--indra-accent)) 20%, transparent);
+      border: 1px solid color-mix(in srgb, var(--c-color, var(--indra-accent)) 45%, transparent);
+    }
+    .concept-card .term { color: var(--c-color, var(--indra-accent)); font-size: 20px; font-weight: 800; font-family: 'Courier New', monospace; }
+    .concept-card .term small { display: block; margin-top: 2px; color: rgba(255,255,255,.5); font-size: 10.5px; font-family: inherit; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; }
+    .concept-card .meaning { margin-top: 14px; color: rgba(255,255,255,.9); font-size: 14.5px; line-height: 1.48; }
+    .concept-card .analogy {
+      margin-top: 10px; padding: 8px 10px;
+      background: rgba(0,0,0,.25); border-left: 3px solid var(--c-color, var(--indra-accent));
+      border-radius: 6px; font-size: 12.5px; color: rgba(255,255,255,.7); line-height: 1.4;
+    }
+    .concept-card .analogy b { color: #fff; }
+    .concept-card .spring { margin-top: auto; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.58); font-size: 11.5px; line-height: 1.45; }
+    .concept-card .spring code { color: #fff; }
+    .concept-flow { margin-top: 22px; flex: 1; display: grid; grid-template-columns: 1.3fr .7fr; gap: 18px; min-height: 220px; }
+    .flow-panel { background: rgba(0,0,0,.2); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 20px 22px; display: flex; flex-direction: column; }
+    .flow-title { color: var(--indra-accent); font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+    .flow-panel .mermaid { flex: 1; display: flex; align-items: center; justify-content: center; }
+    .flow-panel .mermaid svg { width: 100% !important; height: auto !important; max-height: 220px; }
+    .rule-list { list-style: none; display: grid; gap: 12px; }
+    .rule-list li { color: rgba(255,255,255,.78); font-size: 14px; line-height: 1.4; padding-left: 18px; position: relative; }
+    .rule-list li::before { content: '→'; position: absolute; left: 0; color: var(--indra-accent); font-weight: 800; }
+    .rule-list li b { color: #fff; }
+    .concept-footer { display: flex; justify-content: space-between; align-items: center; height: 36px; padding: 0 32px; background: rgba(0,0,0,.55); border-top: 1px solid rgba(255,255,255,.07); color: rgba(255,255,255,.6); font-size: 10px; letter-spacing: 2px; }
+
+    @media (max-width: 900px) {
+      .concept-inner, .slide-inner { padding: 34px 28px 54px; }
+      .concept-grid, .concept-flow { grid-template-columns: 1fr 1fr; }
+      .concept-slide, .concept-inner { min-height: auto; }
+    }
+
     .slide-footer {
       position: fixed; bottom: 0; left: 0; right: 0;
       height: 36px;
@@ -163,10 +219,100 @@
     }
     .footer-logo { font-size: 10px; font-weight: 700; color: rgba(255,255,255,.6); letter-spacing: 2.5px; }
     .footer-page { font-size: 10px; color: rgba(255,255,255,.6); }
+
+    [data-slide] { display: none; }
+    [data-slide].active { display: flex; }
+    .concept-slide.active { display: flex; flex-direction: column; }
+
+    .slide-nav {
+      position: fixed; bottom: 44px; right: 32px;
+      display: flex; align-items: center; gap: 10px;
+      font-size: 11px; color: rgba(255,255,255,.55); letter-spacing: 1px;
+      z-index: 10;
+    }
+    .slide-nav .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.25); }
+    .slide-nav .dot.current { background: var(--indra-accent); }
   </style>
 </head>
 <body>
-  <div class="slide">
+  <section class="concept-slide active" data-slide="0">
+    <div class="concept-inner">
+      <div class="concept-header">
+        <div class="label">Fundamentos — Semana 07</div>
+        <h1>Cuatro conceptos, <em>un contenedor</em></h1>
+        <p>Vocabulario para leer y diseñar configuración Spring sin confundir responsabilidades.</p>
+      </div>
+
+      <div class="concept-grid">
+        <article class="concept-card" style="--c-color:#3da0a0">
+          <div class="icon-row">
+            <span class="icon">💉</span>
+            <div class="term">DI<small>Dependency Injection</small></div>
+          </div>
+          <p class="meaning"><b>Patrón de diseño</b>: la clase recibe desde afuera los objetos que necesita, en vez de crearlos con <code>new</code>.</p>
+          <div class="analogy">🧱 Lego: te entregan los bloques listos; tú los unes, no fabricas el plástico.</div>
+          <p class="spring"><b>En Spring:</b> la dependencia llega por el <code>constructor</code>. Resultado: menos acoplamiento y tests más simples.</p>
+        </article>
+        <article class="concept-card" style="--c-color:#ce93d8">
+          <div class="icon-row">
+            <span class="icon">🏗️</span>
+            <div class="term">IoC<small>Inversion of Control</small></div>
+          </div>
+          <p class="meaning"><b>Principio de diseño</b>: el framework controla el flujo y la creación de objetos, no tu código.</p>
+          <div class="analogy">🎬 Hollywood: “No nos llames; nosotros te llamaremos”.</div>
+          <p class="spring"><b>En Spring:</b> el <code>ApplicationContext</code> crea y conecta los beans. <b>DI es una técnica para aplicar IoC.</b></p>
+        </article>
+        <article class="concept-card" style="--c-color:#f2b84b">
+          <div class="icon-row">
+            <span class="icon">🔗</span>
+            <div class="term">wiring<small>Conexión de beans</small></div>
+          </div>
+          <p class="meaning">Es el <b>acto de conectar</b>: decidir qué implementación concreta llena cada dependencia requerida.</p>
+          <div class="analogy">🧩 Analogía: encajar la pieza correcta del rompecabezas en el hueco que le corresponde.</div>
+          <p class="spring"><code>EmailSender</code> (interfaz) se conecta con <code>FakeEmailSender</code> dentro de <code>NotificationService</code>.</p>
+        </article>
+        <article class="concept-card" style="--c-color:#e57373">
+          <div class="icon-row">
+            <span class="icon">🌎</span>
+            <div class="term">profile<small>Perfil de entorno</small></div>
+          </div>
+          <p class="meaning">Una <b>etiqueta de entorno</b> (<code>dev</code>, <code>prod</code>) que activa solo los beans válidos para ese contexto.</p>
+          <div class="analogy">🚦 Analogía: un semáforo que solo deja pasar al bean correcto según el entorno activo.</div>
+          <p class="spring"><code>@Profile("dev")</code> → fake; <code>@Profile("prod")</code> → SMTP real. Nunca ambos a la vez.</p>
+        </article>
+      </div>
+
+      <div class="concept-flow">
+        <div class="flow-panel">
+            <div class="flow-title">Cómo encajan en Spring (de principio a implementación)</div>
+          <pre class="mermaid">
+      flowchart TD
+        A["IoC<br/>principio: Spring controla"] --> B["DI<br/>técnica: entrega dependencias"]
+        B --> C["Wiring<br/>conecta interfaz e implementación"]
+        D["Profile<br/>filtra beans por entorno"] --> C
+        C --> E["@Autowired o constructor<br/>mecanismo de inyección"]
+        E --> F["NotificationService"]
+          </pre>
+        </div>
+        <div class="flow-panel">
+          <div class="flow-title">Reglas de lectura</div>
+          <ul class="rule-list">
+            <li><b>IoC</b> es el principio: Spring toma el control.</li>
+            <li><b>DI</b> es la técnica: entrega objetos desde afuera.</li>
+            <li><b>Wiring</b> es la conexión: interfaz ↔ implementación.</li>
+            <li><b>Profile</b> filtra qué implementación puede existir.</li>
+            <li><b>@Autowired</b> pide a Spring resolver e inyectar un bean; constructor es preferido.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="concept-footer">
+      <span>✕ INDRA GROUP</span>
+      <span>Semana 07 · Fundamentos DI / IoC / Wiring / Profiles</span>
+    </div>
+  </section>
+
+  <div class="slide" data-slide="1">
     <div class="slide-inner">
       <div class="slide-header">
         <div class="label">Ancla visual — Semana 07</div>
@@ -253,9 +399,38 @@ sequenceDiagram
     <span class="footer-page">Semana 07 · DI/IoC: Profiles &amp; Wiring</span>
   </div>
 
+  <div class="slide-nav">
+    <span class="dot" data-dot="0"></span>
+    <span class="dot" data-dot="1"></span>
+    <span>&larr; &rarr; para navegar</span>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+
+    const slides = Array.from(document.querySelectorAll('[data-slide]'));
+    const dots = Array.from(document.querySelectorAll('[data-dot]'));
+    let current = 0;
+
+    function goTo(index) {
+      if (index < 0 || index >= slides.length) return;
+      current = index;
+      slides.forEach(s => s.classList.toggle('active', Number(s.dataset.slide) === current));
+      dots.forEach(d => d.classList.toggle('current', Number(d.dataset.dot) === current));
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(e.key)) {
+        e.preventDefault();
+        goTo(current + 1);
+      } else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) {
+        e.preventDefault();
+        goTo(current - 1);
+      }
+    });
+
+    goTo(0);
   </script>
 </body>
 </html>
