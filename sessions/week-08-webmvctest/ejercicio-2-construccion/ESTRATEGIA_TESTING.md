@@ -4,7 +4,6 @@
 > tests pasen, hay que justificar **qué se prueba dónde y por qué**.
 
 ## 1. Pirámide propuesta
-
 | Nivel | Herramienta | Qué valida | Qué NO valida | Nº de tests | Tiempo aprox. |
 |-------|-------------|------------|---------------|-------------|---------------|
 | Unitario (dominio) | JUnit 5 | Invariantes de `Product` y precisión de `BigDecimal` | Serialización HTTP y wiring de Spring | 2 | Milisegundos; por medir |
