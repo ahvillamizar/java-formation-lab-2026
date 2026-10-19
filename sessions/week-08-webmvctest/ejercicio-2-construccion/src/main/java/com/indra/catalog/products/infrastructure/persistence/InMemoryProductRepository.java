@@ -2,10 +2,11 @@ package com.indra.catalog.products.infrastructure.persistence;
 
 import com.indra.catalog.products.domain.model.Product;
 import com.indra.catalog.products.domain.port.ProductRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import org.springframework.stereotype.Repository;
 
 @Repository
 public class InMemoryProductRepository implements ProductRepository {

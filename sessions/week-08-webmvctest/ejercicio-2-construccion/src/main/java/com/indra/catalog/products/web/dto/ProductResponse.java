@@ -1,6 +1,7 @@
 package com.indra.catalog.products.web.dto;
 
 import com.indra.catalog.products.domain.model.Product;
+
 import java.math.BigDecimal;
 
 public record ProductResponse(String id, String name, BigDecimal price, int stock) {
