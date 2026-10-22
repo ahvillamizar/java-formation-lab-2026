@@ -1,10 +1,6 @@
 package com.indra.retail.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
@@ -17,11 +13,18 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @Column (name = "price", nullable = false)
     private BigDecimal price;
 
+    @Column(name = "stock", nullable = false)
     private Integer stock;
+
+    @Version
+    @Column(name = "version")
+    private Long version;
 
     protected Product() {
         
@@ -59,5 +62,13 @@ public class Product {
 
     public void setStock(Integer stock) {
         this.stock = stock;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 }
